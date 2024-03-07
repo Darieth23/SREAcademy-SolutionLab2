@@ -24,20 +24,25 @@ jobs:
       #- name: Push Docker image to Docker Hub
       #  run: docker push xuthyst/sre-acad-module2-test:latest
       
-      #- name: Install AWS CLI
-      #  run: sudo apt install awscli
+      - name: Install AWS CLI
+        run: sudo apt install awscli
       
-      #- name: Check AWS CLI
-      #  run: aws --version
+      - name: Check AWS CLI
+        run: aws --version
 
-      - name: Set AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        permissions:
-          id-token: write
-          contents: read
-        with: 
-          aws-region: us-east-1
+      - name: Set enviroment
+        run: aws configure set region us-east-1
+      
+      - name: Check aws configure
+        run: aws configure list
+      #- name: Set AWS Credentials
+      #  uses: aws-actions/configure-aws-credentials@v4
+      #  permissions:
+      #    id-token: write
+      #    contents: read
+      #  with: 
+      #    aws-region: us-east-1
         
 
-      - name: Check AWS Credentials
-        run: aws configure list
+      #- name: Check AWS Credentials
+      #  run: aws configure list
