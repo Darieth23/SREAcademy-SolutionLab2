@@ -1,4 +1,4 @@
-*Instructions*
+# Instructions
 In this repository:
 
 https://github.ibm.com/jacob-villegas/sre-test
@@ -16,5 +16,5 @@ Extra bonus:
 
 Deploy the container to a Kubernetes cluster in the cloud.
 
-*Solution*
+# Solution
 You can find the solution on this link [Solution](https://github.com/Darieth23/SREAcademy-SolutionLab2/blob/main/Module2Solution.pdf)
