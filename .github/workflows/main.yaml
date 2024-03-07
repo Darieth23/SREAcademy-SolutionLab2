@@ -12,19 +12,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          Username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+      #- name: Login to Docker Hub
+      #  uses: docker/login-action@v3
+      #  with:
+      #    Username: ${{ secrets.DOCKER_USER }}
+      #    password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
+      #- name: Build Docker image
+      #  run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
       
-      - name: Push Docker image to Docker Hub
-        run: docker push xuthyst/sre-acad-module2-test:latest
+      #- name: Push Docker image to Docker Hub
+      #  run: docker push xuthyst/sre-acad-module2-test:latest
       
-      - name: Install AWS CLI
-        run: sudo apt install awscli
-      - name: Check AWS CLI
-        run: aws --version
+      #- name: Install AWS CLI
+      #  run: sudo apt install awscli
+      
+      #- name: Check AWS CLI
+      #  run: aws --version
+
+      - name: Set AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with: 
+          aws-region: us-east-1
+
+      - name: Check AWS Credentials
+        run: aws configure list
