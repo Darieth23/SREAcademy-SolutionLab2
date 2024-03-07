@@ -45,7 +45,7 @@ jobs:
       - name: Move EKSCTL to usr/local/bin
         run: sudo mv /tmp/eksctl /usr/local/bin
 
-      -name: Check EKSCTL installation
+      - name: Check EKSCTL installation
         run: eksctl version
 
       #- name: Set AWS Credentials
