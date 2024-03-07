@@ -32,8 +32,12 @@ jobs:
 
       - name: Set AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
+        permissions:
+          id-token: write
+          contents: read
         with: 
           aws-region: us-east-1
+        
 
       - name: Check AWS Credentials
         run: aws configure list
