@@ -23,3 +23,6 @@ jobs:
       
       - name: Push Docker image to Docker Hub
         run: docker push xuthyst/sre-acad-module2-test:latest
+      
+      - name: Install AWS CLI
+        run: sudo apt install awscli
