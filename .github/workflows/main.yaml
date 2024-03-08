@@ -57,7 +57,7 @@ jobs:
       
       #Deploy cluster to AWS
       - name: Deploy cluster
-        run:  eksctl create cluster --name lab2-sreacad --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
+        run:  eksctl create cluster --name lab2-test --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
 
       - name: Check nodes
         run: kubectl get nodes
@@ -68,3 +68,6 @@ jobs:
 
       - name: Deploy service to cluster
         run: kubectl apply -f Section3/service.yaml
+
+      - name: Get service URL
+        run: kubectl get services
