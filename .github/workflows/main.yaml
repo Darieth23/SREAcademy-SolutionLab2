@@ -18,26 +18,20 @@ jobs:
       #    Username: ${{ secrets.DOCKER_USER }}
       #    password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
-      
-      - name: Check docker images
-        run: docker images
-
       #- name: Push Docker image to Docker Hub
       #  run: docker push xuthyst/sre-acad-module2-test:latest
+
+      - name: Install kubectl
+        run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       
+      - name: Check kubectl installation
+        run: kubectl version --client
+
       - name: Install AWS CLI
         run: sudo apt install awscli
       
       - name: Check AWS CLI
         run: aws --version
-
-      - name: Set aws region
-        run: aws configure set region us-east-1
-      
-      - name: Check aws configure
-        run: aws configure list
 
       - name: Install EKSCTL
         run: curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
@@ -47,6 +41,21 @@ jobs:
 
       - name: Check EKSCTL installation
         run: eksctl version
+
+########################################
+      - name: Set aws region
+        run: aws configure set region us-east-1
+      
+      - name: Check aws configure
+        run: aws configure list
+
+#####################################
+
+      - name: Build Docker image
+        run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
+      
+      - name: Check docker images
+        run: docker images
 
       #- name: Set AWS Credentials
       #  uses: aws-actions/configure-aws-credentials@v4
