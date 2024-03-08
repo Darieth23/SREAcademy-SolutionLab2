@@ -39,7 +39,7 @@ jobs:
       - name: Check aws configure
         run: aws configure list
 
-#####################################
+      #Build and push docker image
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -55,11 +55,19 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push xuthyst/sre-acad-module2-test:latest
       
-      #- name: Deploy cluster
-      #  run:  eksctl create cluster --name lab2-cluster-test1 --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
+      #Deploy cluster to AWS
+      - name: Deploy cluster
+        run:  eksctl create cluster --name lab2-cluster-test1 --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
 
-      #- name: Check nodes
-      #  run: kubectl get nodes
+      - name: Check nodes
+        run: kubectl get nodes
 
-      #- name: Delete cluster
-      #  run: eksctl delete cluster --name lab2sre-cluster
+      - name: Delete cluster
+        run: eksctl delete cluster --name lab2sre-cluster
+
+      #Deploy container and service
+      - name: Deploy container to cluster
+        run: kubectl apply -f deployment.yaml ./Section3
+
+      - name: Deploy service to cluster
+        run: kubectl apply -f service.yaml ./Section3
