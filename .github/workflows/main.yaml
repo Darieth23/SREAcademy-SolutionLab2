@@ -35,11 +35,12 @@ jobs:
         run: eksctl version
 
       #Set AWS Configure
-      - name: Set aws region
-        run: aws configure set region us-east-1
-      
+
       - name: Set aws access_key
         run: aws configure set access_key hola
+        
+      - name: Set aws region
+        run: aws configure set region us-east-1
       
       - name: Set aws secret_key
         run: aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
