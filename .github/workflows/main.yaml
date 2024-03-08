@@ -27,6 +27,9 @@ jobs:
       - name: Check kubectl installation
         run: kubectl version --client
 
+      - name: Test kubectl
+        run: kubectl get nodes
+
       - name: Install AWS CLI
         run: sudo apt install awscli
       
@@ -46,6 +49,9 @@ jobs:
       - name: Set aws region
         run: aws configure set region us-east-1
       
+      #- name: Set aws access_key
+      #  run: aws configure set access_key {{}}
+
       - name: Check aws configure
         run: aws configure list
 
