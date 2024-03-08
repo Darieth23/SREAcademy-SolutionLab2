@@ -42,7 +42,7 @@ jobs:
         run: aws configure set access_key hola
       
       - name: Set aws secret_key
-        run: aws configure set secret_key ${{ secrets.AWS_SECRET_KEY }}
+        run: aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Check aws configure
         run: aws configure list
