@@ -49,8 +49,11 @@ jobs:
       - name: Set aws region
         run: aws configure set region us-east-1
       
-      #- name: Set aws access_key
-      #  run: aws configure set access_key {{}}
+      - name: Set aws access_key
+        run: aws configure set access_key ${{ secrets.AWS_ACCESS_KEY }}
+      
+      - name: Set aws secret_key
+        run: aws configure set secret_key ${{ secrets.AWS_SECRET_KEY }}
 
       - name: Check aws configure
         run: aws configure list
