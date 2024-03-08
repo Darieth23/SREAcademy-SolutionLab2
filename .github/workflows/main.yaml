@@ -19,12 +19,6 @@ jobs:
       - name: Check kubectl installation
         run: kubectl version --client
 
-      - name: Install AWS CLI
-        run: sudo apt install awscli
-      
-      - name: Check AWS CLI
-        run: aws --version
-
       - name: Install EKSCTL
         run: curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
       
@@ -35,23 +29,12 @@ jobs:
         run: eksctl version
 
       #Set AWS Configure
-
-      #- name: Set aws access_key
-      #  run: aws configure set access_key hola
-
-      #- name: Set aws region
-      #  run: aws configure set region us-east-1
-      
-      #- name: Set aws secret_key
-      #  run: aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
-
 
       - name: Check aws configure
         run: aws configure list
@@ -61,10 +44,17 @@ jobs:
       - name: Build Docker image
         run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
       
+      - name: Push Docker image to Docker Hub
+        run: docker push xuthyst/sre-acad-module2-test:latest
+      
       - name: Check docker images
         run: docker images
 
+      - name: Deploy cluster
+        run:  eksctl create cluster \ > --name lab2-cluster \ > --version 1.29 \ > --region us-east-1 \ > --nodegroup-name linux-nodes \ > --node-type t2.micro \ > --nodes 2
 
+      - name: Check nodes
+        run: kubectl get nodes
 
-      #- name: Test kubectl
-      #  run: kubectl get nodes
+      - name: Delete cluster
+        run: eksctl delete cluster --name lab2sre-cluster
