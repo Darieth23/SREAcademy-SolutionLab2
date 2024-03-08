@@ -40,21 +40,26 @@ jobs:
         run: aws configure list
 
 #####################################
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          Username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
         run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
       
-      #- name: Push Docker image to Docker Hub
-      #  run: docker push xuthyst/sre-acad-module2-test:latest
-      
       - name: Check docker images
         run: docker images
+      
+      - name: Push Docker image to Docker Hub
+        run: docker push xuthyst/sre-acad-module2-test:latest
+      
+      #- name: Deploy cluster
+      #  run:  eksctl create cluster --name lab2-cluster-test1 --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
 
-      - name: Deploy cluster
-        run:  eksctl create cluster --name lab2-cluster-test1 --version 1.29 --region us-east-1 --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
+      #- name: Check nodes
+      #  run: kubectl get nodes
 
-      - name: Check nodes
-        run: kubectl get nodes
-
-      - name: Delete cluster
-        run: eksctl delete cluster --name lab2sre-cluster
+      #- name: Delete cluster
+      #  run: eksctl delete cluster --name lab2sre-cluster
