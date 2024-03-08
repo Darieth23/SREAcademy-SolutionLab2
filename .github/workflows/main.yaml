@@ -44,8 +44,8 @@ jobs:
       - name: Build Docker image
         run: docker build -t xuthyst/sre-acad-module2-test:latest ./Section3
       
-      - name: Push Docker image to Docker Hub
-        run: docker push xuthyst/sre-acad-module2-test:latest
+      #- name: Push Docker image to Docker Hub
+      #  run: docker push xuthyst/sre-acad-module2-test:latest
       
       - name: Check docker images
         run: docker images
