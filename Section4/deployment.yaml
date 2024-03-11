@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-application-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lab-application
+  template:
+    metadata:
+      labels:
+        app: lab-application
+    spec:
+      containers:
+      - name: lab-application
+        image: xuthyst/sre-acad-module2:latest
+        ports:
+        - containerPort: 5000
